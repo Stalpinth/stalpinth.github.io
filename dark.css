@@ -2,20 +2,8 @@ body {
     background-color: #11171C;
 }
 
-p, ul, a, h1, h2, h3 {
-	font-family: "Open Sans", sans-serif;
-}
-
 p, ul {
     color: #8CAAC3;
-}
-
-a {
-	color: #1669E5;
-	text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
 }
 
 h1, h2, h3 {
