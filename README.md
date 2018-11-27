@@ -1,2 +1,2 @@
-# www.stalpinth.com
+# stalpinth.com
 My website.
