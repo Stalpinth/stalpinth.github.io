@@ -1,22 +1,26 @@
 <!--
 1. Plain language
 2. Buttons: "Home" and "Back"
-3. Same design
+3. Same design - Use same CSS
 -->
 
 <!DOCTYPE html>
 <html lang="en-US">
 	<head>
-		<link rel="icon" href="favicon.ico" />
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+		<link rel="icon" href="favicon.ico" type="image/x-icon">
 		<title>404 Error - Stalpinth</title>
 		<meta charset="UTF-8">
 		
 		<link rel="stylesheet "href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
-		<style>
-			
-		</style>
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
-		
+		<main class="error404" role="main">
+		  <h1 class="error404-name">404</h1>
+		  <h2 class="error404-tagline">Oh no, you're lost! This page doesn't exist!</h2>
+
+		  <a href="https://www.stalpinth.com" class="btn">Take me home</a>
+		</main>
 	</body>
 </html>

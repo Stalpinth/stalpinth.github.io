@@ -320,9 +320,103 @@ a:hover {
   color: #819198;
 }
 
+.projects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 16px;
+}
+
 .project {
-	transition: box-shadow .3s;
+	background: #fff;
+	border: 1px solid #dcdee2;
+	border-radius: 3px;
+	box-shadow: 0 2px 2px #eaecef;
+  
+	grid-column-end: span 3;
+	grid-row-end: span 1;
+  
+	display: flex;
+	position: relative;
+	
+	transition: box-shadow 200ms;
 }
 .project:hover {
-	box-shadow:0 0 0.25rem rgba(33,33,33,0.25);
+  box-shadow: 0 4px 9px #eaecef;
+}
+.project:focus-within {
+  border-color: #1669e5;
+  box-shadow: 0 0 0 4px #1669e522;
+  transition: none;
+}
+
+.error404 {
+  color: #fff;
+  text-align: center;
+  background-color: #159957;
+  position: relative;
+  background-image: linear-gradient(120deg, #155799, #159957);
+  background-size: cover;
+  height: 100vh;
+}
+@media screen and (min-width: 64em) {
+  .error404 {
+    padding: 5rem 6rem;
+  }
+}
+@media screen and (min-width: 42em) and (max-width: 64em) {
+  .error404 {
+    padding: 3rem 4rem;
+  }
+}
+@media screen and (max-width: 42em) {
+  .error404 {
+    padding: 2rem 1rem;
+  }
+}
+
+.error404-name {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+@media screen and (min-width: 64em) {
+  .error404-name {
+    font-size: 14em;
+	background: linear-gradient(white, transparent 250px);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+@media screen and (min-width: 42em) and (max-width: 64em) {
+  .error404-name {
+    font-size: 2.75rem;
+	background: linear-gradient(white, transparent 250px);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+@media screen and (max-width: 42em) {
+  .error404-name {
+    font-size: 2rem;
+  }
+}
+
+.error404-tagline {
+  margin-bottom: 2rem;
+  font-weight: normal;
+  opacity: 0.7;
+}
+@media screen and (min-width: 64em) {
+  .error404-tagline {
+    font-size: 1.35rem;
+  }
+}
+@media screen and (min-width: 42em) and (max-width: 64em) {
+  .error404-tagline {
+    font-size: 1.15rem;
+  }
+}
+@media screen and (max-width: 42em) {
+  .error404-tagline {
+    font-size: 1rem;
+  }
 }
