@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title>Kongruenser | Stalpinth</title>
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+	<link rel="icon" href="../favicon.ico" type="image/x-icon">
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Raleway&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900&display=swap&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/ba5b428067.js"></script>
+	<script src="commonjs.js"></script>
+	<style>
+		:root {
+			--nav-col: #1FB2CC;
+		}
+		
+		body {
+			background-color: #F8F9FA;
+			height: 100px;
+		}
+		
+		footer {
+			background-color: #fff;
+			padding-top: 40px;
+			border-top: 1px solid #eee;
+		}
+		
+		.main { 
+			font-weight: 400;
+			margin:0 auto;
+			width: 60%;
+			margin-top: 100px;
+			font-size: 16px;
+		}
+		
+		.main h1, .main p {
+			padding-left: 40px;
+		}
+		
+		.main h1 {
+			padding-bottom: 10px;
+		}
+		
+		.main p {
+			padding-bottom: 20px;
+		}
+		
+		th {
+			text-align: left;
+		}
+		
+		table, th, td {
+			border: none;
+			border-bottom: 2px solid #f1f1f1;
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
+		
+		th, td {
+			padding: 15px;
+		}
+		
+		table {
+			border-spacing: 5px;
+		}
+		
+		.log {
+			padding: 10px 30px;
+			padding-bottom: 20px;
+			background-color: #fff;
+			box-shadow: 0 4px 2px 0 rgba(0,0,0,0.05);
+			border-radius: 4px;
+			box-sizing: border-box;
+			padding-bottom: 30px;
+		}
+		
+		.main textarea {
+			width: 100%;
+			resize: vertical;
+			margin-top: 10px;
+			margin-bottom: 25px;
+			padding: 6px;
+			box-sizing: border-box;
+		}
+		
+		.btn {
+			font-size: 16px !important;
+		}
+		
+		.output {
+			float: right;
+		}
+		
+		.text {
+			padding: 0px !important;
+			margin: 0px !important;
+			display: inline;
+			font-size: 24px;
+		}
+	</style>
+	<script>
+		function calc() {
+			var base = document.getElementById("num1").value;
+			var exp = document.getElementById("num2").value;
+			var mod = document.getElementById("num3").value;
+			
+			var i = 1;
+			var pow = 0;
+			var last = 0;
+			
+			var finals = [];
+			
+			while (i <= exp) {
+				pow = Math.pow(base, i)
+				if (pow >= mod) {
+					pow = Math.pow(last, 2);
+					document.getElementById("textarea").value = document.getElementById("textarea").value + base + "^" + i + " ≡ " + pow + " ≡ " + pow % mod + " (mod " + mod + ")" + "\n";
+				} else {
+					document.getElementById("textarea").value = document.getElementById("textarea").value + base + "^" + i + " ≡ " + pow + " (mod " + mod + ")" + "\n";
+				}
+				last = pow % mod;
+				finals[i] = last;
+				i = i * 2;
+			}
+			
+			document.getElementById("textarea").value = document.getElementById("textarea").value + "\n";
+			document.getElementById("textarea").value = document.getElementById("textarea").value + exp + " = ";
+			
+			var left = exp;
+			var extra = "";
+			var extra2 = "";
+			var extra3 = "";
+			var extra4 = "";
+			var calc = 1;
+			
+			while (left > 0) {
+				i = 0;
+				while (Math.pow(2, i) <= left) {
+					i++;
+				}
+				i--;
+				
+				left = left - Math.pow(2, i);
+				if (left > 0) {
+					extra = extra + Math.pow(2, i) + " + ";
+					extra2 = extra2 + Math.pow(2, i) + "+";
+					extra3 = extra3 + base + "^" + Math.pow(2, i) + " * ";
+					extra4 = extra4 + finals[Math.pow(2, i)] + " * ";
+					document.getElementById("textarea").value = document.getElementById("textarea").value + "2^" + i + " + ";
+				} else {
+					extra = extra + Math.pow(2, i);
+					extra2 = extra2 + Math.pow(2, i);
+					extra3 = extra3 + base + "^" + Math.pow(2, i);
+					extra4 = extra4 + finals[Math.pow(2, i)];
+					document.getElementById("textarea").value = document.getElementById("textarea").value + "2^" + i + " = " + extra + "\n" + "\n";
+				}
+				calc = calc * finals[Math.pow(2, i)];
+			}
+			
+			document.getElementById("textarea").value = document.getElementById("textarea").value + base + "^" + exp + " = " + base + "^" + extra2 + " = " + extra3 + " ≡ " + extra4 + " ≡ " + calc + " ≡ " + calc % mod + " (mod " + mod + ")" + "\n" + "\n";
+		}
+		
+		window.onload = function WindowLoad(event) {
+			resize();
+		}
+		
+		function resize() {
+			document.getElementById("textarea").style.minHeight = getPercentage(getInnerHeight(), 36) + "px"; //29.927760577915375
+		}
+
+		window.onresize = resize;
+	</script>
+</head>
+<body>
+	<div class="navbar" id="navbar">
+		<div class="navContent mainCol">
+			<div class="logo">
+				<svg width="32.147999mm" height="38.949001mm" viewBox="0 0 32.147999 38.949001">
+				  <g transform="translate(0,-258.051)">
+					<path
+					   style="opacity:1;fill:var(--nav-col);fill-opacity:1;stroke:none;stroke-width:1.92584872;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+					   d="m 0,1036.1289 a 83.974396,86.390919 0 0 0 24.595703,61.0879 83.974396,86.390919 0 0 0 59.378906,25.3027 v -12.1582 a 72.15586,74.232283 0 0 1 -7.203125,-0.3711 72.15586,74.232283 0 0 1 -7.132812,-1.1093 72.15586,74.232283 0 0 1 -6.988281,-1.836 72.15586,74.232283 0 0 1 -6.775391,-2.5429 72.15586,74.232283 0 0 1 -6.494141,-3.2286 72.15586,74.232283 0 0 1 -6.148437,-3.8789 72.15586,74.232283 0 0 1 -5.742188,-4.4902 72.15586,74.232283 0 0 1 -4.537109,-4.2852 72.15586,74.232283 0 0 1 -4.839844,-5.5019 72.15586,74.232283 0 0 1 -4.279297,-5.9727 72.15586,74.232283 0 0 1 -3.68164,-6.3828 72.15586,74.232283 0 0 1 -3.041016,-6.7265 72.15586,74.232283 0 0 1 -2.375,-7.0079 72.15586,74.232283 0 0 1 -1.68164,-7.2148 72.15586,74.232283 0 0 1 -0.972657,-7.3516 72.15586,74.232283 0 0 1 -0.263672,-6.332 z"
+					   id="path831"
+					   transform="scale(0.26458333)"
+					   inkscape:connector-curvature="0" />
+					<path
+					   style="opacity:1;fill:var(--nav-col);fill-opacity:1;stroke:none;stroke-width:3.28592467;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+					   d="m 83.974609,975.3125 a 60.816239,60.816239 0 0 0 -52.667968,30.4082 60.816239,60.816239 0 0 0 0,60.8164 60.816239,60.816239 0 0 0 52.667968,30.4082 v -12.293 a 48.523021,48.523021 0 0 1 -4.84375,-0.2421 48.523021,48.523021 0 0 1 -4.796875,-0.7266 48.523021,48.523021 0 0 1 -4.699218,-1.1992 48.523021,48.523021 0 0 1 -4.556641,-1.6621 48.523021,48.523021 0 0 1 -4.367187,-2.1114 48.523021,48.523021 0 0 1 -4.134766,-2.5351 48.523021,48.523021 0 0 1 -3.861328,-2.9356 48.523021,48.523021 0 0 1 -3.548828,-3.3047 48.523021,48.523021 0 0 1 -3.201172,-3.6445 48.523021,48.523021 0 0 1 -2.820313,-3.9453 48.523021,48.523021 0 0 1 -1.191406,-1.9551 48.523021,48.523021 0 0 1 -2.212891,-4.3164 48.523021,48.523021 0 0 1 -1.769531,-4.5156 48.523021,48.523021 0 0 1 -1.310547,-4.6699 48.523021,48.523021 0 0 1 -0.83789,-4.7774 48.523021,48.523021 0 0 1 -0.357422,-4.8379 48.523021,48.523021 0 0 1 0.128906,-4.8476 48.523021,48.523021 0 0 1 0.611328,-4.8125 48.523021,48.523021 0 0 1 1.087891,-4.7266 48.523021,48.523021 0 0 1 1.554687,-4.5937 48.523021,48.523021 0 0 1 2.00586,-4.416 48.523021,48.523021 0 0 1 1.099609,-2.0098 48.523021,48.523021 0 0 1 2.630859,-4.0742 48.523021,48.523021 0 0 1 3.025391,-3.791 48.523021,48.523021 0 0 1 3.388672,-3.4688 48.523021,48.523021 0 0 1 3.71875,-3.11523 48.523021,48.523021 0 0 1 4.011719,-2.72656 48.523021,48.523021 0 0 1 4.261718,-2.31446 48.523021,48.523021 0 0 1 4.472657,-1.875 48.523021,48.523021 0 0 1 4.638671,-1.42187 48.523021,48.523021 0 0 1 4.75586,-0.94922 48.523021,48.523021 0 0 1 4.828125,-0.4707 48.523021,48.523021 0 0 1 2.289062,-0.0547 z"
+					   id="path825"
+					   transform="scale(0.26458333)"
+					   inkscape:connector-curvature="0" />
+					<path
+					   style="opacity:1;fill:var(--nav-col);fill-opacity:1;stroke:none;stroke-width:0.31973517;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+					   id="path821"
+					   sodipodi:type="arc"
+					   sodipodi:cx="22.218225"
+					   sodipodi:cy="274.1424"
+					   sodipodi:rx="9.9296865"
+					   sodipodi:ry="9.9296865"
+					   sodipodi:start="1.5707963"
+					   sodipodi:end="0"
+					   d="m 22.218226,284.07208 a 9.9296865,9.9296865 0 0 1 -9.173835,-6.12976 9.9296865,9.9296865 0 0 1 2.152486,-10.82127 9.9296865,9.9296865 0 0 1 10.821275,-2.15249 9.9296865,9.9296865 0 0 1 6.12976,9.17384 h -9.929687 z" />
+				  </g>
+				</svg>
+				<p>&nbsp;Stalpinth</p>
+			</div>
+			<nav>
+				<div class="navIcon" id="navItem"></div>
+				<!--<input type="text" placeholder="Search.." class="search-bar">-->
+				<ul>
+					<li class="resHide"><a href="https://www.stalpinth.com/#home" id="navItem">Home</a></li>
+					<li class="resHide"><a href="https://www.stalpinth.com/#about" id="navItem">About</a></li>
+					<li class="resHide submenu-li">
+						<span class="submenu-button"></span>
+						<a href="https://www.stalpinth.com/#work" id="navItem">Work&nbsp;
+						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129" class="drop-down-img">
+						  <g>
+							<path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"/>
+						  </g>
+						</svg>
+						</a>
+						<ul class="sub-menu">
+							<li><a href="https://www.stalpinth.com/projects" class="header-link">Projects</a></li>
+							<li><a href="https://www.stalpinth.com/tools" class="header-link">Tools</a></li>
+							<li><a href="https://www.stalpinth.com/tutorials" class="header-link">Tutorials</a></li>
+							<li><a href="https://www.stalpinth.com/ideas" class="header-link">Ideas</a></li>
+						</ul>
+					</li>
+					<li class="resHide"><a href="https://www.stalpinth.com/#contact" id="navItem">Contact</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<div class="main">
+		<h1>Kongruenser</h1>
+		<p>Fill in all inputs with numbers and click Calculate.</p>
+		<div class="log">
+			<textarea id="textarea" placeholder="Calculation will be here..." readonly="readonly"></textarea>
+			<a class="btn btn-blue-bg" onmousedown="calc()">Calculate</a>
+			<input type="text" id="num1" min="1" size="1">
+			<p class="text">^</p>
+			<input type="text" id="num2" min="1" size="1">
+			<p class="text">≡ x (mod</p>
+			<input type="text" id="num3" min="1" size="1">
+			<p class="text">)</p>
+		</div>
+	</div>
+	<footer>
+		<h3>Programming isn't hard.<br>It just takes time.</h3>
+		<h2><a href="https://scratch.mit.edu/users/Stalpinth"><img src="../scratch.svg" height="30px" alt="Scratch"></a>&ensp;
+			<a href="https://github.com/Stalpinth"><img src="../github.svg" width="30px" alt="GitHub"></a>&ensp;
+			<a href="https://codepen.io/Stalpinth"><img src="../codepen.svg" width="30px" alt="CodePen"></a>&ensp;
+			<a href="https://dribbble.com/Stalpinth"><img src="../dribbble.svg" width="30px" alt="Dribbble"></a><!--&ensp;
+			<a href="https://www.youtube.com/channel/UC7JkCdi7cGjiqK2o-rdlEnw"><img src="youtube.svg" height="30px" alt="YouTube"></a>-->
+		</h2>
+		<p>Copyright &copy; 2020 Stalpinth. All Rights Reserved.</p><br><br><br>
+	</footer>
+</body>
+</html>
