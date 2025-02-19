@@ -2,7 +2,59 @@
 <html lang="en">
 <head>
 	<title>Stalpinth</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="normalize.css">
+	<script src="jquery.particleground.js"></script>
+		<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			particleground(document.getElementById('particles-front'), {
+				dotColor: 'rgba(255, 255, 255, 1)',
+				lineColor: 'rgba(255, 255, 255, 0.05)',
+				minSpeedX: 0.3,
+				maxSpeedX: 0.6,
+				minSpeedY: 0.3,
+				maxSpeedY: 0.6,
+				density: 50000, // One particle every n pixels
+				curvedLines: false,
+				proximity: 250, // How close two dots need to be before they join
+				parallaxMultiplier: 10, // Lower the number is more extreme parallax
+				particleRadius: 4, // Dot size
+			});
+
+			particleground(document.getElementById('particles-back'), {
+				dotColor: 'rgba(255, 255, 255, 0.5)',
+				lineColor: 'rgba(255, 255, 255, 0.05)',
+				minSpeedX: 0.075,
+				maxSpeedX: 0.15,
+				minSpeedY: 0.075,
+				maxSpeedY: 0.15,
+				density: 30000, // One particle every n pixels
+				curvedLines: false,
+				proximity: 20, // How close two dots need to be before they join
+				parallaxMultiplier: 20, // Lower the number is more extreme parallax
+				particleRadius: 2, // Dot size
+			});
+		}, false);
+	</script>
+	<style>
+		#particles-back, #particles-front {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			position: fixed;
+		}
+
+		#particles-back {
+			background-image: -moz-linear-gradient(45deg, #3f3251 2%, #002025 100%);
+			background-image: -webkit-linear-gradient(45deg, #3f3251 2%, #002025 100%);
+			background-image: linear-gradient(45deg, #3f3251 2%, #002025 100%);
+		}
+	</style>
 </head>
 <body>
+	<div id="particles-back"></div>
+	<div id="particles-front"></div>
 </body>
 </html>
